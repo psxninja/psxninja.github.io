@@ -1,0 +1,315 @@
+<!--
+		_____ 
+ .'/,-Y"     "~-.  
+ l.Y             ^.           
+ /\               _\_      "Doh!"   
+i            ___/"   "\ 
+|          /"   "\   o !   
+l         ]     o !__./   
+ \ _  _    \.___./    "~\  
+  X \/ \            ___./  
+ ( \ ___.   _..--~~"   ~`-.  
+  ` Z,--   /               \    
+	\__.  (   /       ______) 
+	  \   l  /-----~~" /      -Row
+	   Y   \          / 
+	   |    "x______.^ 
+	   |           \    
+	   j            Y
+Author: Pablo Santos - https://psxninja.github.io
+Date: May 05, 2019
+Modified: May 07, 2019
+Modified: Jan 15, 2021
+
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>Rediretc 301 Generator PHP - [ PSXNINJA ]</title>
+<style>
+*,*::after,*::before{
+	margin:0;
+	padding:0;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+	outline:none;
+}
+html,body{
+	width:100%;
+	height:100%;
+	background:#efefef;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.005);
+	font-size:16px;
+}
+header{
+	display: table;
+	width: 100%;
+	background: #ccc;
+	padding: 30px 10px;
+	margin: 0 0 30px;
+}
+input[type="radio"]{display: none}
+input[name="pag"]:checked + div{
+	visibility: visible;
+	min-height: 100%;
+	height: auto;
+	opacity: 1;
+}
+p{
+	display: table;
+	margin: auto;
+	text-align: center;
+}
+table {
+	width: 100%;
+	float: left;
+}
+.center {
+	position: relative;
+	max-width: 1000px;
+	width: 100%;
+	min-height: 100%;
+	margin: auto;
+}
+.pag{
+	visibility: hidden;
+	position: relative;
+	width: 100%;
+	height: 0;
+	min-height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: visibility .3s linear,opacity .3s linear;
+}
+.pag p{
+	line-height: 40px;
+}
+.pag p>button{
+	margin: 10px 0 0 10px;
+	padding: 0 10px;
+	height: 40px;
+}
+textarea {
+	display: block;
+	width: 100%;
+	height: 15em;
+	padding: 5px;
+	margin: auto;
+	outline: none;
+	resize: none;
+}
+label{
+	display: inline-block;
+	padding: 10px;
+	margin: 10px 20px 0 0;
+	background: #096;
+	border-radius: 4px;
+	color: #fafafa;
+	cursor: pointer;
+}
+label:hover{
+	background: #007e66;
+}
+input,button,select{
+	display: inline-block;
+	padding: 10px 5px;
+	margin: 0 0 10px;
+}
+button{
+	width: 39px;
+	cursor: pointer;
+	border-radius: 50%;
+}
+input[type="range"]{
+	position: relative;
+	margin: 0 10px 0;
+}
+input[type="range"]::after{
+	content: attr(data-type)attr(data-value);
+	position: absolute;
+	width: 100%;
+	top: 8px;
+	right: -100%;
+	padding: 0 0 0 5px;
+	color: #333;
+}
+.codephp{
+	display: none;
+}
+.codephp.active{
+	display: block;
+}
+footer{
+	color: transparent;
+}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+	<div class="center">
+		<h1>Rediretc 301 Generator PHP</h1>
+	</div>
+</header>
+
+<div class="center">
+<input type="radio" name="pag" id="pag1" checked="yes" />
+<div class="pag pag1">
+	<table border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<input type="text" name="domainfrom" placeholder="DOMAIN from"> <- Only domain here *
+			</td>
+			<td>
+				<select name="protocol">
+					<option value="" disabled="yes" selected="yes">Protocol</option>
+					<option value="https://">HTTPS</option>
+					<option value="http://">HTTP</option>
+				</select>
+				<input type="text" name="domainto" placeholder="DOMAIN to"> <- Only domain here *
+			</td>
+		</tr>
+		<tr>
+			<td width="50%">
+				<textarea name="urlsfrom" placeholder="URLs from &#x0a;/product?id=1&#x0a;&#x0a;Paste without domain *"></textarea>
+			</td>
+			<td>
+				<textarea name="urlsto" placeholder="URLs to&#x0a;/product/id&#x0a;&#x0a;Paste without domain *"></textarea>
+			</td>
+		</tr>
+	</table>
+	<label for="pag2">Generate and Download index.php</label><label class='htaccess'>Download .htaccess for Apache*</label>
+	<br><br>
+	<textarea class="codephp"></textarea>
+	<br><br>
+	<div>
+		<span>
+			<span style="color: red;">*</span> Put only <b>domain</b> in [DOMAIN FROM] and in [DOMAIN TO] without<br/>
+			protocol (http/https)<br/><br/>
+		</span>
+		<span>
+			<span style="color: red;">*</span> If <b>.htaccess</b> came as <b>htaccess.txt</b> file extension, you need change<br/>
+			the file extension to <b>.htaccess</b> or you might use Firefox browser.
+		</span>
+	</div>
+</div>
+
+</div><!-- center -->
+
+<footer>
+	Developed by https://psxninja.github.io | version 1.3.1
+</footer>
+
+</main>
+
+<script>
+var $ = function(el){return document.querySelector(el)},
+$$ = function(el){return document.querySelectorAll(el)},
+urlsfrom = [],
+urlsto = [];
+
+var pabloR301 = {
+	urlstojson: function() {
+		urlsfrom = $('[name=urlsfrom]').value.split('\n');
+		urlsfrom = urlsfrom.filter(function (el) { return el!=='' });
+		urlsto = $('[name=urlsto]').value.split('\n');
+		urlsto = urlsto.filter(function (el) { return el!=='' });
+		let domainfrom = $('[name=domainfrom]').value;
+		let domainto = $('[name=domainto]').value;
+		let protocol = $('[name=protocol]').value;
+		if(/*domainfrom==''||*/domainto==''||protocol=='')return;
+		let php = '';
+		if(domainfrom.length){
+			php = "<?php \n"+
+					  "$domain=$_SERVER['HTTP_HOST'];\n"+
+					  "$query=$_SERVER['REQUEST_URI'];\n"+
+					  "if($domain.$query=='"+domainfrom+"/'){header('Location:"+protocol+domainto+"',TRUE,301);exit;}\n";
+		}else{
+			php = "<?php \n"+
+					  "$query=$_SERVER['REQUEST_URI'];\n"+
+					  "if($query=='/'){header('Location:"+protocol+domainto+"',TRUE,301);exit;}\n";
+		}
+		for(let z = urlsfrom.length,i=0; i<z; i++){
+			if((+z-1)!==i){
+				if(domainfrom.length){
+					php += "elseif($domain.$query=='"+domainfrom+urlsfrom[i]+"'){header('Location:"+protocol+domainto+urlsto[i]+"',TRUE,301);exit;}\n";
+				}else{
+					php += "elseif($query=='"+urlsfrom[i]+"'){header('Location:"+protocol+domainto+urlsto[i]+"',TRUE,301);exit;}\n";
+				}
+			}else{
+				if(domainfrom.length){
+					php += "elseif($domain.$query=='"+domainfrom+urlsfrom[i]+"'){header('Location:"+protocol+domainto+urlsto[i]+"',TRUE,301);exit;}";
+				}else{
+					php += "elseif($query=='"+urlsfrom[i]+"'){header('Location:"+protocol+domainto+urlsto[i]+"',TRUE,301);exit;}";
+				}
+			}
+		}
+		download(php,'index.php','text/plain');
+	}
+}
+function download(data, filename, type) {
+	try{
+		var file = new Blob([/*"\ufeff",*/data], {type: type});
+		if(window.navigator.msSaveOrOpenBlob) /*IE10+*/
+			window.navigator.msSaveOrOpenBlob(file, filename);
+		else{ /*Others*/
+			var a = document.createElement("a"),
+					url = URL.createObjectURL(file);
+			a.href = url;
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
+			setTimeout(function() {
+				document.body.removeChild(a);
+				window.URL.revokeObjectURL(url);  
+			}, 0); 
+		}
+	}catch(e){
+		$('.codephp').value = data;
+		$('.codephp').classList.add('active');
+	}
+}
+function paste(e,field){
+	let clipboardData, pastedData;
+	clipboardData = e.clipboardData || window.clipboardData || e.originalEvent.clipboardData;
+	pastedData = clipboardData.getData('Text').replace(/<[^>]*>/g, "");
+	pastedData = pastedData.replace('http://','').replace('https://','').split(/[/?#]/);
+	pastedData = pastedData[0];
+	field.value = pastedData;
+}
+$('[name="domainfrom"]').addEventListener('paste',function(e){
+	e.preventDefault();
+	paste(e,this);
+},false);
+
+$('[name="domainto"]').addEventListener('paste',function(e){
+	e.preventDefault();
+	paste(e,this);
+},false);
+
+$('label[for="pag2"]').addEventListener('click',function(e){
+	e.preventDefault();
+	pabloR301.urlstojson();
+},false);
+
+$('.htaccess').addEventListener('click',function(e){
+	e.preventDefault();
+	let ht = "<IfModule mod_rewrite.c>\n"+
+			"RewriteEngine On\n"+
+			"RewriteBase /\n"+
+			"RewriteRule ^index\\.php$ - [L]\n"+
+			"RewriteCond %{REQUEST_FILENAME} !-f\n"+
+			"RewriteCond %{REQUEST_FILENAME} !-d\n"+
+			"RewriteRule . /index.php [L]\n"+
+			"</IfModule>\n";
+	download(ht,'.htaccess'/* ,'application/octet-binary' */);
+},false);
+
+</script>
+</body>
+</html>
