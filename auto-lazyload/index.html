@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Simple lazyload on images, iframe and backgroung images.">
+  <meta name="keywords" content="Lazyload,JavaScript,lazy,load">
+  <meta name="author" content="psxninja">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AutoLazyload v3.0.0 - demo</title>
+	<style>
+		*,
+		*::after,
+		*::before {
+			margin: 0;
+			padding: 0;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			outline: none;
+		}
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			background: #efefef;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.005);
+			font-size: 17px;
+			text-align: center;
+		}
+		a,a:visited {
+			text-decoration: none;
+			border-bottom: 2px solid #cccccc;
+			color: #000;
+		}
+		/* for image */
+		iframe[class*="lazy-"] {
+			background: #c3c3c3;
+		}
+		[class*="lazy-"][src*="data:image/gif;"] {
+			opacity: .1;
+			transition: none;
+		}
+		[class*="lazy-"] {
+			opacity: .1;
+			transition: opacity .3s ease-out;
+		}
+		[class*="lazy-"].lazy-loaded {
+			opacity: 1;
+		}
+	</style>
+</head>
+<body>
+	<h1>AutoLazyload v3.0.0 - demo</h1><br>
+	<p>Simple lazyload on images, iframe and backgroung images.</p>
+	<p>
+		Source code at
+		<a href="https://github.com/psxninja/auto-lazyload" title="Github">https://github.com/psxninja/auto-lazyload</a>.
+	</p>
+	<br><br><br>
+	<img
+		class="lazy-loading"
+		width="800"
+		height="450"
+		src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs="
+		data-src="https://disneyplusbrasil.com.br/wp-content/uploads/2020/12/Baby-Yoda-Grogu.jpg">
+	<br><br><br>
+	<iframe
+		class="lazy-loading"
+		width="560"
+		height="315"
+		src="data:text/plain;charset=UTF-8,Loading..."
+		data-src="https://www.youtube.com/embed/oas5nAlfrwg" title="YouTube video player" frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen></iframe>
+		<br><br><br>
+		Made with ♥
+</body>
+<script async src="https://raw.githubusercontent.com/psxninja/auto-lazyload/master/auto-lazyload-min.js"></script>
+</html>
